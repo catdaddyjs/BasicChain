@@ -3,25 +3,27 @@ const Block = require('./block');
 class Blockchain {
 
     constructor() {
-        this.chain = [Block.genesis()];
+        this.chain = [Block.generateGenesisBlock()];
     }
 
     addBlock(data) {
-        const lastBlock = this.chain[this.chain.length - 1];
-        const block = Block.mineBlock(lastBlock, data);
+        const prevBlock = this.chain[this.chain.length - 1];
+        const block = Block.mineBlock(prevBlock, data);
         this.chain.push(block);
+
+        console.log(block);
 
         return block;
     }
 
     isValidChain(chain) {
-        if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
+        if (JSON.stringify(chain[0]) !== JSON.stringify(Block.generateGenesisBlock())) return false;
 
         for (let i = 1; i < chain.length; i++) {
             const block = chain[i];
-            const lastBlock = chain[i - 1];
+            const prevBlock = chain[i - 1];
 
-            if (block.lastHash !== lastBlock.hash || block.hash !== Block.blockHash(block)) {
+            if (block.prevHash !== prevBlock.hash || block.hash !== Block.blockHash(block)) {
                 return false;
             }
         }

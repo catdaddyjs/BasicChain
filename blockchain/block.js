@@ -6,8 +6,8 @@ const { DIFFICULTY, MINE_RATE } = require('../config');
 class Block {
 
     constructor(timestamp, prevHash, hash, data, nonce, difficulty) {
-        this.timestamp = timestamp;
-        this.prevHash = lastHash;
+        this.timeStamp = timestamp;
+        this.prevHash = prevHash;
         this.hash = hash;
         this.data = data;
         this.nonce = nonce;
@@ -53,13 +53,13 @@ class Block {
         return difficulty;
     }
 
-    static hash(timestamp, prevHash, data, nonce, difficulty) {
-        return SHA256(`${timestamp}${prevHash}${data}${nonce}${difficulty}`).toString();
+    static hash(timeStamp, prevHash, data, nonce, difficulty) {
+        return SHA256(`${timeStamp}${prevHash}${data}${nonce}${difficulty}`).toString();
     }
 
     static blockHash(block) {
-        const { timestamp, prevHash, data, nonce, difficulty } = block;
-        return Block.hash(timestamp, prevHash, data, nonce, difficulty);
+        const { timeStamp, prevHash, data, nonce, difficulty } = block;
+        return Block.hash(timeStamp, prevHash, data, nonce, difficulty);
     }
 
 }

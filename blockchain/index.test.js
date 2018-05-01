@@ -12,7 +12,7 @@ describe('Blockchain', () => {
     });
 
     it('start with genesis block', () => {
-        expect(bc.chain[0]).toEqual(Block.genesis());
+        expect(bc.chain[0]).toEqual(Block.generateGenesisBlock());
     });
 
     it('adds a new block', () => {
